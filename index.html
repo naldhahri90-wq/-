@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نظام المناوبات</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Tahoma;}
+
+body{
+background:linear-gradient(-45deg,#ff6b6b,#feca57,#48dbfb,#1dd1a1,#5f27cd);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* SIDEBAR */
+.sidebar{
+position:fixed;
+top:50%;
+right:15px;
+transform:translateY(-50%);
+background:white;
+padding:12px;
+border-radius:15px;
+display:flex;
+flex-direction:column;
+gap:8px;
+z-index:999;
+}
+
+.sidebar a{
+text-decoration:none;
+color:#2563eb;
+font-weight:bold;
+font-size:14px;
+}
+
+/* PAGE */
+.page{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:40px;
+}
+
+.box{
+background:rgba(255,255,255,0.92);
+width:90%;
+max-width:1000px;
+padding:40px;
+border-radius:25px;
+text-align:center;
+}
+
+/* CARDS */
+.cards{
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+justify-content:center;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:15px;
+min-width:120px;
+animation:float 3s infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-5px);}
+}
+
+/* CHART */
+.chart-box{
+margin-top:20px;
+background:white;
+padding:20px;
+border-radius:18px;
+}
+
+canvas{width:100%!important;height:300px!important;}
+
+/* GLOW */
+.glow-point{
+background:white;
+padding:15px;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+font-weight:bold;
+color:#333;
+position:relative;
+overflow:hidden;
+animation:floatGlow 3s infinite ease-in-out;
+}
+
+@keyframes floatGlow{
+0%{transform:translateY(0);}
+50%{transform:translateY(-6px);box-shadow:0 0 18px rgba(37,99,235,0.4);}
+100%{transform:translateY(0);}
+}
+
+.glow-point::after{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
+animation:shine 3s infinite;
+}
+
+@keyframes shine{
+0%{left:-100%;}
+50%{left:100%;}
+100%{left:100%;}
+}
+
+/* CLICKABLE */
+.click-card{
+text-decoration:none;
+display:block;
+color:inherit;
+}
+
+.click-card div{
+cursor:pointer;
+transition:0.3s;
+}
+
+.click-card div:hover{
+transform:scale(1.03);
+box-shadow:0 6px 18px rgba(0,0,0,0.15);
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+<a href="#home">الرئيسية</a>
+<a href="#about">نبذة</a>
+<a href="#report">التقرير</a>
+<a href="#class1">ف1</a>
+<a href="#class2">ف2</a>
+<a href="#class3">ف3</a>
+<a href="#class4">ف4</a>
+<a href="#benchmark">المقارنة</a>
+<a href="#poll">استطلاع الرأي</a>
+<a href="#info">المعلومات المرصودة</a>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="page">
+<div class="box">
+
+<h1 style="
+font-size:34px;
+background:linear-gradient(90deg,#2563eb,#1dd1a1,#5f27cd,#ff6b6b);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+font-weight:bold;
+">
+📊 تقرير نظام المناوبات الجديد
+</h1>
+
+<p style="margin-top:12px;font-size:18px;color:#444;">
+من الفترة <b>18 فبراير</b> إلى <b>15 مايو 2026</b>
+</p>
+
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="page">
+<div class="box">
+
+<h1>📌 نبذة عن نظام المناوبات الجديد</h1>
+
+<div style="margin-top:25px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;">
+
+<div class="glow-point">📊 تحسين إدارة المناوبات بشكل منظم وفعال</div>
+<div class="glow-point">📈 رفع مستوى الكفاءة التشغيلية والمتابعة اليومية</div>
+<div class="glow-point">🧠 دعم اتخاذ القرار من خلال بيانات دقيقة</div>
+<div class="glow-point">📱 واجهة سهلة الاستخدام وسريعة الوصول</div>
+<div class="glow-point">🚨 تعزيز الرقابة والمتابعة المستمرة</div>
+<div class="glow-point">⚡ تحسين سرعة الاستجابة والتحديثات الفورية</div>
+
+</div>
+
+</div>
+</section>
+
+<!-- REPORT -->
+<section id="report" class="page">
+<div class="box">
+
+<h1>📊 التقرير العام</h1>
+
+<div class="cards">
+<div class="card">1023<br>جولات</div>
+<div class="card">857<br>تقارير</div>
+<div class="card">1962<br>مواقع</div>
+<div class="card">45<br>أمنية</div>
+<div class="card">15<br>سلوكية</div>
+<div class="card">20<br>إدارية</div>
+</div>
+
+<div class="chart-box">
+<canvas id="reportChart"></canvas>
+</div>
+
+</div>
+</section>
+
+<!-- CLASS 1 -->
+<section id="class1" class="page">
+<div class="box">
+<h1>📌 الفئة 1</h1>
+<div class="cards">
+<div class="card">364<br>جولات</div>
+<div class="card">216<br>تقارير</div>
+<div class="card">364<br>مواقع</div>
+<div class="card">22<br>أمنية</div>
+<div class="card">4<br>سلوكية</div>
+<div class="card">0<br>إدارية</div>
+</div>
+<div class="chart-box"><canvas id="c1"></canvas></div>
+</div>
+</section>
+
+<!-- CLASS 2 -->
+<section id="class2" class="page">
+<div class="box">
+<h1>📌 الفئة 2</h1>
+<div class="cards">
+<div class="card">230<br>جولات</div>
+<div class="card">334<br>تقارير</div>
+<div class="card">460<br>مواقع</div>
+<div class="card">10<br>أمنية</div>
+<div class="card">10<br>سلوكية</div>
+<div class="card">7<br>إدارية</div>
+</div>
+<div class="chart-box"><canvas id="c2"></canvas></div>
+</div>
+</section>
+
+<!-- CLASS 3 -->
+<section id="class3" class="page">
+<div class="box">
+<h1>📌 الفئة 3</h1>
+<div class="cards">
+<div class="card">213<br>جولات</div>
+<div class="card">0<br>تقارير</div>
+<div class="card">676<br>مواقع</div>
+<div class="card">0<br>أمنية</div>
+<div class="card">0<br>سلوكية</div>
+<div class="card">13<br>إدارية</div>
+</div>
+<div class="chart-box"><canvas id="c3"></canvas></div>
+</div>
+</section>
+
+<!-- CLASS 4 -->
+<section id="class4" class="page">
+<div class="box">
+<h1>📌 الفئة 4</h1>
+<div class="cards">
+<div class="card">216<br>جولات</div>
+<div class="card">307<br>تقارير</div>
+<div class="card">462<br>مواقع</div>
+<div class="card">13<br>أمنية</div>
+<div class="card">1<br>سلوكية</div>
+<div class="card">0<br>إدارية</div>
+</div>
+<div class="chart-box"><canvas id="c4"></canvas></div>
+</div>
+</section>
+
+<!-- BENCHMARK (SMART CLEAR ANALYSIS) -->
+<section id="benchmark" class="page">
+<div class="box">
+
+<h1>📈 لوحة المقارنة المعيارية (2025 - 2026)</h1>
+
+<div class="cards">
+
+<div class="card">
+<b>📅 2025</b><br><br>
+👥 الموظفين: 2<br>
+🚓 الدوريات: 1<br>
+📄 التقارير: 30<br><br>
+<span style="color:#999;">بداية التشغيل</span>
+</div>
+
+<div class="card">
+<b>📅 2026</b><br><br>
+👥 الموظفين: 15<br>
+🚓 الدوريات: 4<br>
+📄 التقارير: 240<br><br>
+<span style="color:#1dd1a1;">توسع وتشغيل متقدم</span>
+</div>
+
+<div class="card">
+<b>📊 الفرق بين العامين</b><br><br>
+👥 الموظفين: +13<br>
+🚓 الدوريات: +3<br>
+📄 التقارير: +210<br><br>
+<span style="color:#2563eb;">زيادة واضحة في الأداء والإنتاج</span>
+</div>
+
+</div>
+
+<div style="margin-top:25px;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;">
+
+<div class="glow-point">
+📊 توسع كبير في الكادر التشغيلي بين 2025 و 2026
+</div>
+
+<div class="glow-point">
+🚓 تحسن كبير في التغطية الميدانية والاستجابة
+</div>
+
+<div class="glow-point">
+📄 زيادة التقارير تعكس تطور الرصد والمتابعة
+</div>
+
+<div class="glow-point">
+⚡ 2026 يمثل مرحلة نضج وتشغيل متقدم
+</div>
+
+</div>
+
+<div class="chart-box">
+<canvas id="benchmarkChart"></canvas>
+</div>
+
+</div>
+</section>
+
+<!-- POLL -->
+<section id="poll" class="page">
+<div class="box">
+
+<h1>📊 استطلاع الرأي</h1>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:25px;">
+
+<a class="click-card" href="https://drive.google.com/file/d/19HrZsIjjXjlp5ZJWENa3jFmaTMvlaiH_/view?usp=sharing" target="_blank">
+<div style="background:white;padding:25px;border-radius:18px;text-align:center;">
+🧑‍✈️<h2>موظفي المباحث</h2>
+</div>
+</a>
+
+<a class="click-card" href="https://drive.google.com/file/d/1Evm5XS4RQjvFZ-wftX1c1habuXqoGfMi/view?usp=sharing" target="_blank">
+<div style="background:white;padding:25px;border-radius:18px;text-align:center;">
+📊<h2>مسؤولي الفئات</h2>
+</div>
+</a>
+
+</div>
+
+</div>
+</section>
+
+<!-- INFO -->
+<section id="info" class="page">
+<div class="box">
+
+<h1>📁 المعلومات المرصودة</h1>
+
+<a class="click-card" href="https://drive.google.com/file/d/1jKE56pGUSmjAmYVesmwNTWztERxNo-5B/view?usp=sharing" target="_blank">
+<div style="background:white;padding:25px;border-radius:18px;">
+📁 معلومات أمنية
+</div>
+</a>
+
+</div>
+</section>
+
+<!-- CHARTS -->
+<script>
+new Chart(document.getElementById("reportChart"),{
+type:"bar",
+data:{labels:["جولات","تقارير","مواقع","أمنية","سلوكية","إدارية"],
+datasets:[{data:[1023,857,1962,45,15,20],backgroundColor:"#2563eb"}]}
+});
+
+new Chart(document.getElementById("c1"),{
+type:"bar",
+data:{labels:["جولات","تقارير","مواقع","أمنية","سلوكية","إدارية"],
+datasets:[{data:[364,216,364,22,4,0],backgroundColor:"#1dd1a1"}]}
+});
+
+new Chart(document.getElementById("c2"),{
+type:"bar",
+data:{labels:["جولات","تقارير","مواقع","أمنية","سلوكية","إدارية"],
+datasets:[{data:[230,334,460,10,10,7],backgroundColor:"#48dbfb"}]}
+});
+
+new Chart(document.getElementById("c3"),{
+type:"bar",
+data:{labels:["جولات","تقارير","مواقع","أمنية","سلوكية","إدارية"],
+datasets:[{data:[213,0,676,0,0,13],backgroundColor:"#feca57"}]}
+});
+
+new Chart(document.getElementById("c4"),{
+type:"bar",
+data:{labels:["جولات","تقارير","مواقع","أمنية","سلوكية","إدارية"],
+datasets:[{data:[216,307,462,13,1,0],backgroundColor:"#ff6b6b"}]}
+});
+
+new Chart(document.getElementById("benchmarkChart"),{
+type:"bar",
+data:{
+labels:["المناوبين","الدوريات","التقارير"],
+datasets:[
+{label:"2025",data:[2,1,30],backgroundColor:"#2563eb"},
+{label:"2026",data:[15,4,240],backgroundColor:"#1dd1a1"}
+]
+}
+});
+</script>
+
+</body>
+</html>
